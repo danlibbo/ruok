@@ -2,14 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Full-Screen GIF</title>
+    <title>BHN digital signage</title>
     <style>
         /* Set CSS styles to make the GIF full-screen */
         body, html {
             height: 100%;
             margin: 0;
             overflow: hidden;
-            background-color: black;
         }
 
         img {
@@ -19,10 +18,39 @@
             position: fixed;
             top: 0;
             left: 0;
+            display: none; /* Initially hide the image */
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: bottom right; }
+            100% { background-position: top left; }
+        }
+
+        .gradient-background {
+            background: linear-gradient(45deg, white, #1C365E, #82C341, #048442);
+            background-size: 400% 400%;
+            animation: gradientAnimation 14s ease infinite;
+        }
+
+        .black-background {
+            background-color: black;
         }
     </style>
+    <script>
+        // Function to show the GIF after a random delay
+        function showGif() {
+            var img = document.querySelector("img");
+            var delays = [0, 3500, 7000, 10500, 14000, 17500, 21000]; // Specified delays in milliseconds
+            var delay = delays[Math.floor(Math.random() * delays.length)]; // Randomly select one of the specified delays
+            setTimeout(function() {
+                img.style.display = "block"; // Show the image after the delay
+                document.body.classList.remove("gradient-background"); // Remove gradient background
+                document.body.classList.add("black-background"); // Add black background
+            }, delay);
+        }
+    </script>
 </head>
-<body>
+<body class="gradient-background" onload="showGif()">
     <img src="Signage_Melbourne_slides.gif" alt="Full-Screen GIF">
 </body>
 </html>
